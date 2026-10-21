@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Городской квест</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Exo+2:wght@500;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SVG-спрайт: все иконки описаны один раз и подключаются через <use> -->
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <symbol id="icon-pin" viewBox="0 0 24 24">
+        <path d="M12 22s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12z" fill="currentColor"/>
+        <circle cx="12" cy="10" r="2.5" fill="#ffffff"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M15 15l6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="8"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6M12 17v6M1 12h6M17 12h6"/>
+        </g>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M7 12.5l3.5 3.5L17 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-trophy" viewBox="0 0 24 24">
+        <path d="M7 3h10v6a5 5 0 0 1-10 0z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+        <path d="M7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+        <rect x="11" y="14" width="2" height="4" fill="#f59e0b"/>
+        <rect x="8" y="18" width="8" height="3" rx="1" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24">
+        <path d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7L12 17.6 5.7 21l1.5-7L2 9.3l7-.8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-flag" viewBox="0 0 24 24">
+        <path d="M5 3v18M5 4h14l-4 5 4 5H5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4.5" fill="currentColor"/>
+        <path d="M3.5 21c0-5 4-7 8.5-7s8.5 2 8.5 7z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-map" viewBox="0 0 24 24">
+        <path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-bulb" viewBox="0 0 24 24">
+        <path d="M12 3a6 6 0 0 0-3.5 10.9V17h7v-3.1A6 6 0 0 0 12 3zM10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3.5"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>
+        </g>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+        <path d="M3 12h17M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+</svg>
+<div class="app">
+
+    <main class="content">
+
+        <!-- Экран 1. Главная -->
+        <section class="screen active" id="home">
+            <div class="logo"><svg class="icon"><use href="#icon-pin"></use></svg></div>
+            <h1 class="title">Городской квест</h1>
+            <p class="subtitle">Твой квест</p>
+
+            <div class="card">
+                <p class="card__label">Активное задание</p>
+                <h2 class="card__text">Найди необычное здание в городе</h2>
+                <p class="card__points">+50 <svg class="icon"><use href="#icon-star"></use></svg></p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="quest">Начать квест <svg class="icon"><use href="#icon-flag"></use></svg></button>
+            </div>
+        </section>
+
+        <!-- Экран 2. Выполнение квеста -->
+        <section class="screen" id="quest">
+            <div class="logo"><svg class="icon"><use href="#icon-search"></use></svg></div>
+            <h1 class="title">Выполнение квеста</h1>
+            <p class="subtitle">Текущее задание</p>
+
+            <div class="card">
+                <div class="card__icon"><svg class="icon"><use href="#icon-target"></use></svg></div>
+                <p class="card__label">Твой активный квест</p>
+                <h2 class="card__text">Сфотографируй необычное здание и загрузи фото</h2>
+                <p class="card__points">+75 <svg class="icon"><use href="#icon-star"></use></svg></p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="done"><svg class="icon"><use href="#icon-check"></use></svg> Проверить ответ</button>
+                <button class="btn" id="hint-button"><svg class="icon"><use href="#icon-bulb"></use></svg> Получить подсказку</button>
+            </div>
+        </section>
+
+        <!-- Экран 3. Квест выполнен -->
+        <section class="screen" id="done">
+            <div class="logo"><svg class="icon"><use href="#icon-trophy"></use></svg></div>
+            <h1 class="title">Квест выполнен!</h1>
+            <p class="subtitle">Поздравляем!</p>
+
+            <div class="card">
+                <div class="card__icon card__icon--ok"><svg class="icon"><use href="#icon-check"></use></svg></div>
+                <p class="card__label">Твой результат</p>
+                <h2 class="card__text">Необычное здание найдено</h2>
+                <p class="card__points">+150 <svg class="icon"><use href="#icon-star"></use></svg></p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="quest">Следующий квест <svg class="icon"><use href="#icon-arrow"></use></svg></button>
+                <button class="btn" data-screen="home">На главную <svg class="icon"><use href="#icon-home"></use></svg></button>
+            </div>
+        </section>
+
+        <!-- Экран 4. Квесты на карте -->
+        <section class="screen" id="map">
+            <div class="logo"><svg class="icon"><use href="#icon-map"></use></svg></div>
+            <h1 class="title">Квесты на карте</h1>
+            <p class="subtitle">Найди квест рядом с тобой</p>
+            <p class="filters">Фильтры: сложность · расстояние</p>
+
+            <div class="card">
+                <h2 class="card__text">3 квеста доступны рядом с тобой</h2>
+                <div class="map">
+                    <span class="pin" style="left: 20%; top: 40%;"><svg class="icon"><use href="#icon-pin"></use></svg></span>
+                    <span class="pin" style="left: 45%; top: 25%;"><svg class="icon"><use href="#icon-pin"></use></svg></span>
+                    <span class="pin" style="left: 70%; top: 50%;"><svg class="icon"><use href="#icon-pin"></use></svg></span>
+                    <p class="map__count">×3 <svg class="icon"><use href="#icon-pin"></use></svg></p>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="quest">Подробнее</button>
+                <button class="btn" id="route-button">Маршрут</button>
+            </div>
+        </section>
+
+        <!-- Экран 5. Профиль -->
+        <section class="screen" id="profile">
+            <div class="logo"><svg class="icon"><use href="#icon-user"></use></svg></div>
+            <h1 class="title">Мой профиль</h1>
+            <p class="subtitle">Павловская Полина</p>
+
+            <div class="card">
+                <div class="card__icon"><svg class="icon"><use href="#icon-user"></use></svg></div>
+                <p class="card__label">Уровень 7 · Исследователь</p>
+                <h2 class="card__text">
+                    Пройдено квестов: 24<br>
+                    Достижений: 12
+                </h2>
+                <p class="card__points">850 <svg class="icon"><use href="#icon-trophy"></use></svg></p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="quests">История квестов</button>
+                <button class="btn" id="settings-button"><svg class="icon"><use href="#icon-gear"></use></svg> Настройки</button>
+            </div>
+        </section>
+
+        <!-- Экран «Квесты» (вкладка меню, макета нет) -->
+        <section class="screen" id="quests">
+            <div class="logo"><svg class="icon"><use href="#icon-flag"></use></svg></div>
+            <h1 class="title">Квесты</h1>
+            <p class="subtitle">История квестов</p>
+
+            <div class="card">
+                <h2 class="card__text">Пройдено квестов: 24</h2>
+                <p>Выбери новый квест и получи ещё больше очков.</p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" data-screen="quest">Начать квест</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Нижнее меню (на компьютере становится боковым) -->
+    <nav class="menu">
+        <p class="menu__name">Городской квест</p>
+        <button class="menu__item active" data-screen="home">
+            <span class="menu__icon"><svg class="icon"><use href="#icon-home"></use></svg></span> Главная
+        </button>
+        <button class="menu__item" data-screen="map">
+            <span class="menu__icon"><svg class="icon"><use href="#icon-pin"></use></svg></span> Карта
+        </button>
+        <button class="menu__item" data-screen="quests">
+            <span class="menu__icon"><svg class="icon"><use href="#icon-flag"></use></svg></span> Квесты
+        </button>
+        <button class="menu__item" data-screen="profile">
+            <span class="menu__icon"><svg class="icon"><use href="#icon-user"></use></svg></span> Профиль
+        </button>
+    </nav>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
